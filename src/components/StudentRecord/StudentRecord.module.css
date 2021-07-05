@@ -1,0 +1,138 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;600&display=swap");
+body {
+  font-family: "Raleway";
+}
+.student {
+  background-color: rgb(194, 194, 194);
+}
+
+.studentInnner {
+  padding: 5% 20%;
+}
+
+.studentContent {
+  background-color: rgb(255, 255, 255);
+  padding: 0 5%;
+  border-radius: 10px;
+}
+.studentTile {
+  padding: 2% 2%;
+  display: flex;
+  border-bottom: 1px solid rgb(209, 208, 208);
+}
+.Img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 1px solid rgb(209, 208, 208);
+}
+
+.studentDetails {
+  width: 100%;
+}
+.studentHeader {
+  display: flex;
+  flex: 1;
+  width: 100%;
+}
+.AccordionIcon {
+  float: right;
+  width: 20%;
+  color: rgb(156, 156, 156);
+  font-size: 25px;
+  cursor: pointer;
+}
+.studentName {
+  padding: 0 30px;
+  font-weight: bold;
+  font-size: 2rem;
+  text-transform: uppercase;
+}
+.studentInfo {
+  display: flex;
+}
+.studentInfo li {
+  display: flex;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  color: rgb(128, 128, 128);
+}
+
+.studentGrade {
+  display: none;
+}
+
+.studentGradeActive {
+  display: flex;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.studentGrade li {
+  display: none;
+}
+.studentTable {
+  width: 100%;
+  font-weight: 600;
+  color: rgb(128, 128, 128);
+}
+.studentTable td:nth-child(2) {
+  padding: 0 20px;
+  text-align: left;
+}
+.search {
+  width: 100%;
+}
+
+.searchContainer {
+  background-color: none;
+  height: 40px;
+  border-bottom: 1px solid rgb(209, 208, 208);
+  display: flex;
+  overflow: hidden;
+}
+
+.inputContainer {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+.inputContainer input {
+  flex-grow: 1;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 15px;
+}
+
+.tagContainer {
+  background-color: none;
+  border-bottom: 1px solid rgb(209, 208, 208);
+  display: flex;
+  overflow: hidden;
+  width: 50%;
+  margin: 2% 10%;
+}
+
+.tagContainer input {
+  flex-grow: 1;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 15px;
+}
+.tag {
+  margin: 0 10%;
+  color: rgb(128, 128, 128);
+  font-weight: 600;
+  font-size: 15px;
+  display: flex;
+}
+.tag li {
+  text-decoration: none;
+  display: flex;
+  background-color: rgb(202, 199, 199);
+  padding: 1%;
+}
