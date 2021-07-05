@@ -2,7 +2,9 @@ import React, {useState, useRef} from 'react'
 import style from "./StudentRecord.module.css"
 
 
-const TagInput = () => {
+const TagInput = (props) => {
+    const setSearchTag = props.setSearchTag
+
 
     const [tags, setTags] = useState([])
     const inputRef = useRef(null)
@@ -10,15 +12,18 @@ const TagInput = () => {
     
 //This functions adds new tag to individual students details
     const addtag = e =>{
-        const value = e.target.value
+        const {value, name} = e.target
         if(e.key === "Enter" && value){
-            if(tags.find(tag => tag.toLowerCase() === value.toLowerCase())){
+            if(tags.find(tag => tag.val.toLowerCase() === value.toLowerCase())){
                 return alert("Tag has been entered before")
             }
-           setTags([...tags, value])
+           setTags([...tags, {val: value, id: props.studentId}])
+          
            inputRef.current.value = null
         }
+      
     }
+    console.log(tags)
     return (
         <div  className={style.tagContainer}>
             
@@ -31,7 +36,7 @@ const TagInput = () => {
                               tags.map((tag, i) => 
                               
                               (
-                                  <li key={i}>{tag}</li> 
+                                  <li key={i}>{tag.val}</li> 
                               )   
                               )
                              

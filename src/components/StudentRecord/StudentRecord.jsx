@@ -4,6 +4,7 @@ import { CalcAverage} from './CalcAverage'
 import {FaPlus, FaMinus} from "react-icons/fa"
 import style from "./StudentRecord.module.css"
 import TagInput from './TagInput'
+import SearchContainer from './SearchContainer'
 import ErrorPage from './ErrorPage'
 
 
@@ -12,7 +13,10 @@ function StudentRecord() {
     const [students, setStudents] = useState([]);
     const [searchStudent, setSearchStudent] = useState([])
     const [show, setShow] = useState(false);
-    //const [searchTag, setSearchTag] = useState([])
+    const [filteredStudents, setFilteredStudents] = useState(false);
+    const [filteredStudentsTag, setFilteredStudentsTag] = useState(false);
+    const [searchTag, setSearchTag] = useState([])
+
 
     //Function to toggle the list of student grades
     const toggle = (index) => {
@@ -23,11 +27,54 @@ function StudentRecord() {
         }
 
         //Implement the search 
-        const TagSearchHandler = () => {
 
+        //Implement filter
+        const onChangeHandler = e => {
+            const value = e.target.value
+            setSearchStudent(value)
+          
         }
 
+        const onChangeHandlerTag = e => {
+            const value = e.target.value
+            setSearchTag(value)
+          
+        }
+
+
+        useEffect(() => {
+            setFilteredStudents(
+                students.filter(
+                    student => {
+                        const fullName = student.firstName + " " + student.lastName
+                                                 if(student.firstName.toLowerCase().includes(searchStudent)|| 
+                        student.lastName.toLowerCase().includes(searchStudent) || fullName.toLowerCase().includes(searchStudent)){
+                            return student
+                        
+                        }
+                    }
+                )
+            )
+        }, [searchStudent, students])
+
       
+
+
+       
+
+        /*
+        First Approach
+            
+        const filteredStudents = students.filter(
+                    student => {
+                         if(student.firstName.toLowerCase().includes(searchStudent)|| 
+                        student.lastName.toLowerCase().includes(searchStudent)){
+                            return student
+                        
+                        }
+                    }
+                )
+      */
     //Fetching data from the Api endpoint provided
     useEffect(() => {
         async function getStudent(){
@@ -50,31 +97,26 @@ function StudentRecord() {
                 <div className={style.studentInnner}>
                     <div className={style.studentContent}>
                     <div className={style.search}>
-            <div className={style.searchContainer}>
-                <div className={style.inputContainer}>
-                    <input 
-               
-                    type="text" 
-                    id="filter-students"
-                    name="filter-students"
-                    placeholder="Search by name" 
-                    onChange={(e) => setSearchStudent(e.target.value)}
-                    />
-                    
-                </div>
-                </div>
+                        <SearchContainer 
+                        id={"filter-name"}
+                        name={"filter-name"}
+                        searchBy={"Search by name"}
+                        value={searchStudent}
+                        onChange={onChangeHandler}
+                        />
+
+                        <SearchContainer 
+                        id={"filter-tag"}
+                        name={"filter-tag"}
+                        searchBy={"Search by tag"}
+                        onChange= {onChangeHandlerTag}
+                        />
+            
                 </div>
                 {
                     //Used filter to return the searched student firstname and lastname
-                students.filter(stud => {
-                            if(searchStudent === ""){
-                                return stud
-                            }else if(stud.firstName.toLowerCase().includes(searchStudent)|| 
-                            stud.lastName.toLowerCase().includes(searchStudent)){
-                                return stud
-                        }
-                        
-                    }).map((student, index) => (
+
+                    filteredStudents.map((student, index) => (
                         <div key={index} className={style.studentTile}>
                         <div >
                             <img src={student.pic} className={style.Img} alt= "..."/>
@@ -121,12 +163,10 @@ function StudentRecord() {
                           ) : null}
                           
                           <TagInput
-                          /*
-                          nameTag = {searchTag}
-                          searchKeyword={TagSearchHandler} */                      
-                          
+                        
+                            searchName = {searchTag}       
+                            studentId =  {student.id}
                           />
-                    
                           
                         </div> 
                         </div>
@@ -136,7 +176,12 @@ function StudentRecord() {
                         </div>
                        
                         ))}
+                        
+                        
                         </div>
+                        </div>
+                        <div>
+                            {students.length === 0 && <span>No Records</span>}
                         </div>
                     </div>
                 )
