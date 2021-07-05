@@ -9,11 +9,3 @@ export const  CalcAverage = (grades) => {
     return average;
 }
 
-export const HorizontalLine = () => (
-    <hr
-        style={{
-            color: "black",
-            height: 5
-        }}
-    />
-)

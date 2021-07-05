@@ -29,11 +29,17 @@ body {
 
 .studentDetails {
   width: 100%;
+  margin: 0 5%;
 }
 .studentHeader {
   display: flex;
   flex: 1;
   width: 100%;
+}
+
+.studentInnerContent {
+  padding: 0 5%;
+  border-radius: 10px;
 }
 .AccordionIcon {
   float: right;
@@ -43,34 +49,37 @@ body {
   cursor: pointer;
 }
 .studentName {
-  padding: 0 30px;
   font-weight: bold;
   font-size: 2rem;
   text-transform: uppercase;
 }
 .studentInfo {
-  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.studentInfo ul {
+  padding: 0;
+  list-style-type: none;
 }
 .studentInfo li {
   display: flex;
   font-size: 14px;
   font-weight: 600;
-  text-decoration: none;
+  margin: 0;
+  padding: 0;
   color: rgb(128, 128, 128);
-}
-
-.studentGrade {
-  display: none;
 }
 
 .studentGradeActive {
   display: flex;
   font-size: 14px;
   font-weight: 600;
-  text-decoration: none;
 }
-.studentGrade li {
-  display: none;
+
+.studentGradeActive ul {
+  padding: 0;
+  list-style-type: none;
 }
 .studentTable {
   width: 100%;
@@ -107,32 +116,38 @@ body {
   font-size: 15px;
 }
 
-.tagContainer {
+.tagInputContainer {
   background-color: none;
   border-bottom: 1px solid rgb(209, 208, 208);
   display: flex;
   overflow: hidden;
   width: 50%;
-  margin: 2% 10%;
+  margin-top: 10px;
 }
 
-.tagContainer input {
+.tagInputContainer input {
   flex-grow: 1;
   background-color: transparent;
   border: none;
   outline: none;
   font-size: 15px;
 }
+
 .tag {
-  margin: 0 10%;
   color: rgb(128, 128, 128);
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
+}
+.tag ul {
   display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 .tag li {
-  text-decoration: none;
-  display: flex;
-  background-color: rgb(202, 199, 199);
-  padding: 1%;
+  border-radius: 2px;
+  background-color: rgb(236, 235, 235);
+  padding: 5px 5px;
+  margin: 0 2px;
 }

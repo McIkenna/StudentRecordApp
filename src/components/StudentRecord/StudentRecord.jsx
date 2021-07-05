@@ -3,6 +3,8 @@ import axios from "axios"
 import { CalcAverage} from './CalcAverage'
 import {FaPlus, FaMinus} from "react-icons/fa"
 import style from "./StudentRecord.module.css"
+import TagInput from './TagInput'
+import ErrorPage from './ErrorPage'
 
 
 function StudentRecord() {
@@ -10,8 +12,7 @@ function StudentRecord() {
     const [students, setStudents] = useState([]);
     const [searchStudent, setSearchStudent] = useState([])
     const [show, setShow] = useState(false);
-    const [tags, setTags] = useState([]);
-    const [newTags, setNewTags] = useState([]);
+    //const [searchTag, setSearchTag] = useState([])
 
     //Function to toggle the list of student grades
     const toggle = (index) => {
@@ -21,15 +22,11 @@ function StudentRecord() {
             setShow(index);
         }
 
-        //This functions adds new tag to individual students details
-    const addTags = index => (e) => {
-        
-            if(e.key === "Enter" &&  e.target.value !== ""){
-                console.log(index);
-               setTags([...tags,  e.target.value]);   
-               e.target.value =""; 
-            }                
-    }
+        //Implement the search 
+        const TagSearchHandler = () => {
+
+        }
+
       
     //Fetching data from the Api endpoint provided
     useEffect(() => {
@@ -76,8 +73,9 @@ function StudentRecord() {
                             stud.lastName.toLowerCase().includes(searchStudent)){
                                 return stud
                         }
+                        
                     }).map((student, index) => (
-                        <div key={student.id} className={style.studentTile}>
+                        <div key={index} className={style.studentTile}>
                         <div >
                             <img src={student.pic} className={style.Img} alt= "..."/>
                         </div>
@@ -86,9 +84,9 @@ function StudentRecord() {
                         <div className={style.studentHeader}>
                         <div className={style.studentName}>
                         {student.firstName} {student.lastName}
+                        </div>        
                         </div>
-                                    
-                        </div>
+                        <div className={style.studentInnerContent}> 
                         <div className={style.studentInfo}>
                             <ul>
                             <li>Email: {student.email}</li>
@@ -97,30 +95,7 @@ function StudentRecord() {
                             <li>Average: {CalcAverage(student.grades)}%</li>
                             </ul>
                           </div>
-
-                            {/*Obtain the tags */}
-                          <div className={style.tag}> {
-                              
-                                tags.map((tag, i) => (
-                                    <li key={i}>{tag}</li> 
-                                    
-                                ))
-                                }
-                        </div>  
                       
-                                                                  
-                        <div className={style.tagContainer} key={index}>
-                        
-                            <input 
-                            type="text" 
-                            id={`tag-${student.id}`}
-                            name={`${student.id}`}
-                            placeholder="Add a tag" 
-                            onKeyUp={addTags(index)}
-                            onChange={() => { console.log(`${student.id} ${index}`)}}
-                          
-                                                               />
-                                                               </div>  
                           {show === index ? 
                           (
                             <div className={`${style.studentGradeActive}`}>
@@ -145,7 +120,16 @@ function StudentRecord() {
 
                           ) : null}
                           
+                          <TagInput
+                          /*
+                          nameTag = {searchTag}
+                          searchKeyword={TagSearchHandler} */                      
+                          
+                          />
+                    
+                          
                         </div> 
+                        </div>
                         <div className={style.AccordionIcon}  onClick={()=> toggle(index)} key={index}>
                             {show === index ? <span >< FaMinus/></span> : <span>< FaPlus/></span>}
                         </div> 
