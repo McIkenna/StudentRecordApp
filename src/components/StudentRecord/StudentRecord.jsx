@@ -3,20 +3,25 @@ import axios from "axios"
 import { CalcAverage} from './CalcAverage'
 import {FaPlus, FaMinus} from "react-icons/fa"
 import style from "./StudentRecord.module.css"
-import TagInput from './TagInput'
+import Tag from './Tag'
 import SearchContainer from './SearchContainer'
 import ErrorPage from './ErrorPage'
 
 
-function StudentRecord() {
+function StudentRecord(props) {
     const [isLoaded, setLoaded] = useState(false);
     const [students, setStudents] = useState([]);
     const [searchStudent, setSearchStudent] = useState([])
     const [show, setShow] = useState(false);
     const [filteredStudents, setFilteredStudents] = useState(false);
     const [filteredStudentsTag, setFilteredStudentsTag] = useState(false);
-    const [searchTag, setSearchTag] = useState([])
+    const [tags, setTags] = useState([])
+    var [searchTag, setSearchTag] = useState([])
 
+
+
+    searchTag = props.TagData;
+    console.log(searchTag);
 
     //Function to toggle the list of student grades
     const toggle = (index) => {
@@ -162,8 +167,13 @@ function StudentRecord() {
 
                           ) : null}
                           
-                          <TagInput
-                        
+                          <Tag
+                            TagItem = {tags}
+                            tag = {tags.map((tag, i) => (
+                                tag.id === student.id ? 
+                                <div key={i} className={style.tag}>{tag.val}</div>: null
+                            ))}
+                            setTagItem = {setTags}
                             searchName = {searchTag}       
                             studentId =  {student.id}
                           />
