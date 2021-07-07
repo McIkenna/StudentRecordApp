@@ -5,7 +5,6 @@ import {FaPlus, FaMinus} from "react-icons/fa"
 import style from "./StudentRecord.module.css"
 import Tag from './Tag'
 import SearchContainer from './SearchContainer'
-import ErrorPage from './ErrorPage'
 
 
 function StudentRecord(props) {
@@ -13,73 +12,51 @@ function StudentRecord(props) {
     const [students, setStudents] = useState([]);
     const [searchStudent, setSearchStudent] = useState([])
     const [show, setShow] = useState(false);
-    const [filteredStudents, setFilteredStudents] = useState(false);
-    const [filteredStudentsTag, setFilteredStudentsTag] = useState(false);
     const [tags, setTags] = useState([])
-    var [searchTag, setSearchTag] = useState([])
+    //const [searchTag, setSearchTag] = useState([])
+   
 
+   
+/* My intention here is to merge the tags and the students object to filter using the tag, this happened to be unsuccessful
+    //const mergedStudent = CombinedRecord(students, tags)
+  /* const mergedStudent = students.map((item, i) => {
+       if(item.id === tags.id + 1){
+        Object.assign({},item,tags[i])
+       }
+    });
 
+    
+*/
 
-    searchTag = props.TagData;
-    console.log(searchTag);
-
-    //Function to toggle the list of student grades
+ //Function to toggle the list of student grades
     const toggle = (index) => {
         if(show === index){
             return setShow(null)
         } 
             setShow(index);
         }
+    
+    const onChangeHandler = e => {
+        const value = e.target.value
+        setSearchStudent(value)
+        
+    }
 
-        //Implement the search 
+   
 
-        //Implement filter
-        const onChangeHandler = e => {
-            const value = e.target.value
-            setSearchStudent(value)
-          
-        }
-
-        const onChangeHandlerTag = e => {
-            const value = e.target.value
-            setSearchTag(value)
-          
-        }
-
-
-        useEffect(() => {
-            setFilteredStudents(
-                students.filter(
-                    student => {
-                        const fullName = student.firstName + " " + student.lastName
-                                                 if(student.firstName.toLowerCase().includes(searchStudent)|| 
-                        student.lastName.toLowerCase().includes(searchStudent) || fullName.toLowerCase().includes(searchStudent)){
-                            return student
-                        
-                        }
+   //Implementing the filter
+    const filteredStudents = students.filter(
+                            student => {
+                    const fullName = student.firstName + " " + student.lastName
+                                                if(student.firstName.toLowerCase().includes(searchStudent)|| 
+                    student.lastName.toLowerCase().includes(searchStudent) || fullName.toLowerCase().includes(searchStudent)){
+                        return student
+                    
                     }
-                )
+                    
+                }
             )
-        }, [searchStudent, students])
-
-      
-
-
-       
-
-        /*
-        First Approach
-            
-        const filteredStudents = students.filter(
-                    student => {
-                         if(student.firstName.toLowerCase().includes(searchStudent)|| 
-                        student.lastName.toLowerCase().includes(searchStudent)){
-                            return student
-                        
-                        }
-                    }
-                )
-      */
+        
     //Fetching data from the Api endpoint provided
     useEffect(() => {
         async function getStudent(){
@@ -114,7 +91,7 @@ function StudentRecord(props) {
                         id={"filter-tag"}
                         name={"filter-tag"}
                         searchBy={"Search by tag"}
-                        onChange= {onChangeHandlerTag}
+                        onChange= {() => {}}
                         />
             
                 </div>
@@ -142,7 +119,6 @@ function StudentRecord(props) {
                             <li>Average: {CalcAverage(student.grades)}%</li>
                             </ul>
                           </div>
-                      
                           {show === index ? 
                           (
                             <div className={`${style.studentGradeActive}`}>
@@ -174,7 +150,7 @@ function StudentRecord(props) {
                                 <div key={i} className={style.tag}>{tag.val}</div>: null
                             ))}
                             setTagItem = {setTags}
-                            searchName = {searchTag}       
+                            //searchName = {searchTag}       
                             studentId =  {student.id}
                           />
                           

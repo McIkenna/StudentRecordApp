@@ -10,6 +10,7 @@ export default function InputTag(props) {
                       type="text" 
                       placeholder="Add a tag" 
                       onKeyDown= {props.addTag}
+                      
                       ref={props.inputRef}/>
                       </div>
         </div>

@@ -15,17 +15,14 @@ const TagInput = (props) => {
 //This functions adds new tag to individual students details
     const addtag = e =>{
         const {value, name} = e.target
-        if(e.key === "Enter" && value){
-            if(tags.find(tag => tag.val.toLowerCase() === value.toLowerCase())){
-                return alert("Tag has been entered before")
-            }
+            if(e.key === "Enter" && value){
            setTags([...tags, {val: value, id: props.studentId}])
           
            inputRef.current.value = null
         }
       
     }
-    
+
     return (
         <div  className={style.tagContainer}>
             
